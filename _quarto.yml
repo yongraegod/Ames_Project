@@ -1,0 +1,18 @@
+project:
+  type: website
+  output-dir: docs
+  preview:
+    port: 4200
+
+website:
+  page-navigation: true
+  title: "Ames Project"
+
+format:
+  html:
+    theme: cosmo
+    # css: styles.css
+    toc: True
+
+
+
