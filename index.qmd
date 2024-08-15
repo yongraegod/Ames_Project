@@ -3,45 +3,245 @@ title: "Ames 가성비 집 찾기 Project"
 author: "최강2조"
 format: 
   dashboard:
+    scrolling: true
     nav-buttons:
      - icon: github
      - href: https://github.com/yongraegod/Ames_Project
 ---
-# Page 1
+# 도시 개요
 Ames basic information
 
-## Row {height=60%}
+## Row
 
-### test
+## Ames 설명
 [에임즈](https://ko.wikipedia.org/wiki/%EC%97%90%EC%9E%84%EC%8A%A4_%28%EC%95%84%EC%9D%B4%EC%98%A4%EC%99%80%EC%A3%BC%29)
 (Ames)는 미국 중서부 아이오와주에 있는 도시이다.
 </br>
-인구 51,557(2006).
+인구 : 51,557(2006).
 </br>
-아이오와주 중부, 스토리 군에 속하며, 주도 디모인 북쪽 50km 지점에 있다.
+아이오와주 중부, 스토리 군에 속하며, 주도 Des Moines 북쪽 50km 지점에 있다.
 </br>
 옥수수 재배와 돼지 사육이 성한 옥수수지대에 위치한다. 에임스는 아이오와 주에서 아이오와시티와 함께 대학도시로 유명하다.
 
-### test2
-Ames 인구 분포
-</br>
-![](img/ames_population.png)
-
-
-## Row {height=40%}
+## Row
 
 ```{python}
-#| title: "Ames Map"
+#| title: "Ames Map 집값 지도"
 #| padding: 0px
 from IPython.display import IFrame
 
 # ames_map.html 파일을 대시보드에 삽입
-IFrame(src='maps/ames_map.html', width='100%', height='600px')
+IFrame(src='maps/ames_house_price_map.html', width='100%', height='600px')
+```
+
+### 어떤 가격의 집이 많을까?
+어떤 가격의 집이 많을까?
+![](img/집값구간.png)
+
+
+### 인구 분포
+인구 분포
+
+</br>
+![](img/ames_population.png)
+Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 것을 알 수 있다.
+
+
+## 키워드
+Ames Keyword
+
+"# 10~15만 달러의 집이 많음"   "#20대 초반 인구가 많음"
+
+
+# 분석 및 시각화
+
+가성비 있는 집을 찾아줘!
+</br>
+</br>
+- 가장 많은 비율을 차지하는 20~24세 싱글을 위한 가성비 있는 집은 어디에 있을까?
+</br>
+- 각 변수들과 House_Price의 관계를 살펴보자
+</br>
+- 5점 척도 사용
+
+::: {.columns}
+
+### Left Column
+#### Column {.tabset}
+
+```{python}
+#| title: Chart 1
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
 ```
 
 
+```{python}
+#| title: Chart 2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+```{python}
+#| title: Chart 3
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+### Right Column
+#### Column {.tabset}
+
+```{python}
+#| title: Chart 1
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
 
 
-# Page 2
+```{python}
+#| title: Chart 2
+import matplotlib.pyplot as plt
+import numpy as np
 
-여기는 페이지 2 입니다.
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+```{python}
+#| title: Chart 3
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+:::
+
+## row
+
+::: {#layout .columns}
+
+### Left Column
+#### Column {.tabset}
+
+```{python}
+#| title: Chart 1
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+
+```{python}
+#| title: Chart 2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+```{python}
+#| title: Chart 3
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+### Right Column
+#### Column {.tabset}
+
+```{python}
+#| title: Chart 1
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+
+```{python}
+#| title: Chart 2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+```{python}
+#| title: Chart 3
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+data = np.random.normal(size=100)
+
+plt.hist(data)
+plt.title("Tab 1")
+plt.show()
+```
+
+:::
