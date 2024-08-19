@@ -756,7 +756,11 @@ built_max = house1015['Year_Built'].max() # 2008
 
 # 종합평가
 
-1. 종합평가 지도
+total_score기준으로 평가를 해보자!
+
+## Row
+
+1. 종합평가 지도(ames시의 10-15만대 집 가성비 점수비교)
 
 ## Row
 
@@ -770,6 +774,8 @@ IFrame(src='maps/map_with_final.html', width='100%', height='600px')
 
 ### Right Column
 ::: {.card title="설명"}
+Total_Score
+</br>
 ▣ 빨간색 : 4점 이상
 </br>
 ▣ 주황색 : 4점 미만 3점 이상
@@ -847,22 +853,72 @@ top_2_per_group
 IFrame(src='maps/house1015_Overall.html', width='100%', height='600px')
 ```
 
+### Column1-1
+```{python}
+# 데이터 불러오기
+house1015_Overall = pd.read_csv("../Ames_Project/data/house1015_Overall.csv")
+
+house1015_Overall
+```
+
+:::
+
+## Row
+
+::: {.columns}
+
 ### Column2
 ```{python}
 #| title: Score_GrLivArea
 IFrame(src='maps/house1015_GrLivArea.html', width='100%', height='600px')
 ```
 
+### Column2-1
+```{python}
+# 데이터 불러오기
+house1015_GrLivArea = pd.read_csv("../Ames_Project/data/house1015_GrLivArea.csv")
+
+house1015_GrLivArea
+```
+
+:::
+
+## Row
+
+::: {.columns}
+
 ### Column3
 ```{python}
 #| title: Score_year_remod
-IFrame(src='maps/house1015_GrLivArea.html', width='100%', height='600px')
+IFrame(src='maps/house1015_year_remod.html', width='100%', height='600px')
 ```
+
+### Column3-1
+```{python}
+# 데이터 불러오기
+house1015_year_remod = pd.read_csv("../Ames_Project/data/house1015_year_remod.csv")
+
+house1015_year_remod
+```
+
+:::
+
+## Row
+
+::: {.columns}
 
 ### Column4
 ```{python}
 #| title: Score_Year_Built
 IFrame(src='maps/house1015_Year_Built.html', width='100%', height='600px')
+```
+
+### Column4-1
+```{python}
+# 데이터 불러오기
+house1015_Year_Built = pd.read_csv("../Ames_Project/data/house1015_Year_Built.csv")
+
+house1015_Year_Built
 ```
 
 :::

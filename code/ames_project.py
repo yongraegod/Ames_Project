@@ -486,6 +486,7 @@ my_map.save("../maps/map_with_final.html")
 house1015_Overall = house1015.sort_values(by=['Score_Overall_Cond', 'Total_Score',"Sale_Price", 'Neighborhood'], ascending=False).reset_index(drop=True).head(10)
 house1015_Overall[["Score_Overall_Cond",'Total_Score',"Sale_Price", 'Neighborhood']]
 
+
 ## 지도
 # 지도의 중심 위치를 결정하기 위해 중간값을 사용
 map_center = [house1015_Overall['Latitude'].mean(), house1015_Overall['Longitude'].mean()]
@@ -505,6 +506,12 @@ for idx, row in house1015_Overall.iterrows():
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
 mymap1.save("../maps/house1015_Overall.html")
+
+# csv로 저장
+df = house1015_Overall[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
+                                    'Score_GarageCars', 'Score_year_remod','Score_Year_Built', 'Total_Score']]
+
+df.to_csv('../data/house1015_Overall.csv', index=False)
 
 
 # --------------------------------------------------
@@ -534,6 +541,12 @@ for idx, row in house1015_GrLivArea.iterrows():
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
 mymap2.save("../maps/house1015_GrLivArea.html")
 
+# csv로 저장
+df = house1015_GrLivArea[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
+                                    'Score_GarageCars', 'Score_year_remod','Score_Year_Built', 'Total_Score']]
+
+df.to_csv('../data/house1015_GrLivArea.csv', index=False)
+
 # --------------------------------------------------
 # Score_year_remod
 # --------------------------------------------------
@@ -559,7 +572,14 @@ for idx, row in house1015_year_remod.iterrows():
     ).add_to(mymap3)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
-mymap3.save("../maps/house1015_GrLivArea")
+mymap3.save("../maps/house1015_year_remod")
+
+# csv로 저장
+df = house1015_year_remod[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
+                                    'Score_GarageCars', 'Score_year_remod','Score_Year_Built', 'Total_Score']]
+
+df.to_csv('../data/house1015_year_remod.csv', index=False)
+
 
 # -------------------------------------------------
 # Score_Year_Built
@@ -587,6 +607,13 @@ for idx, row in house1015_Year_Built.iterrows():
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
 mymap4.save("../maps/house1015_Year_Built.html")
+
+# csv로 저장
+df = house1015_Year_Built[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
+                                    'Score_GarageCars', 'Score_year_remod','Score_Year_Built', 'Total_Score']]
+
+df.to_csv('../data/house1015_Year_Built.csv', index=False)
+
 =======================================================
 #| title: 2. Ames시의 가성비 Top 6
 

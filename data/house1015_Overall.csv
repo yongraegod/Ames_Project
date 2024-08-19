@@ -1,0 +1,11 @@
+Longitude,Latitude,Neighborhood,Sale_Price,Score_GrLivArea,Score_Overall_Cond,Score_GarageCars,Score_year_remod,Score_Year_Built,Total_Score
+-93.625589,42.033699,Brookside,106900,5,5,3,5,2,4.0
+-93.620386,42.026741,Old_Town,140000,5,5,3,4,2,3.8
+-93.624567,42.033616,Brookside,134900,3,5,3,5,3,3.8
+-93.603917,41.98811,Mitchell,130500,1,5,3,5,5,3.8
+-93.669544,42.033686,Sawyer,145000,1,5,3,5,4,3.6
+-93.608196,42.038509,North_Ames,143500,1,5,3,5,4,3.6
+-93.610044,42.028556,Old_Town,143000,4,5,3,4,2,3.6
+-93.617242,42.041243,North_Ames,142000,2,5,3,5,3,3.6
+-93.616998,42.027073,Old_Town,129400,5,5,1,5,2,3.6
+-93.613886,42.021555,Iowa_DOT_and_Rail_Road,124900,2,5,3,5,3,3.6
