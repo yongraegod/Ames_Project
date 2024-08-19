@@ -122,8 +122,34 @@ Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 �
 
 
 ::: {.card title="Sale_Price와 상관계수가 높은 변수들"}
+상관계수 상위 두개의 변수를 보겠다.
+</br>
+(Gr_Liv_Area | Garage_Cars)
+</br>
+```{python}
+# 데이터 불러오기 
+house= pd.read_csv("../Ames_Project/data/houseprice-with-lonlat.csv")
 
-<img src="img/house_price_상관관계.png" alt="House Price 상관관계" width="600" />
+corr_matrix = house.corr(numeric_only=True)
+corr_matrix["Sale_Price"].sort_values(ascending = False)
+plt.figure(figsize=(8, 6))
+
+top_10_corr = corr_matrix["Sale_Price"].abs().sort_values(ascending=False).head(11)  # 'Sale_Price' 포함
+top_10_vars = top_10_corr.index
+
+# 상위 10개 변수만을 포함하는 상관계수 행렬 생성
+top_10_corr_matrix = corr_matrix.loc[top_10_vars, top_10_vars]
+
+# 히트맵 그리기
+plt.figure(figsize=(12, 10))
+sns.heatmap(top_10_corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', vmin=-1, vmax=1, annot_kws={"size": 7})
+plt.title("Top 10 Features Correlation Heatmap with Sale Price")
+plt.axis('tight')
+plt.xlabel('Features', fontsize=4)
+plt.ylabel('Features', fontsize=4)
+plt.show()
+plt.clf()
+```
 :::
 
 # 변수 분석
