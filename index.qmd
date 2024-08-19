@@ -1,6 +1,6 @@
 --- 
-title: "Ames 가성비 집 찾기 Project"
-author: "최강2조"
+title: "AMES 가성비 집 찾기 Project"
+author: "🥰최강2조"
 format: 
   dashboard:
     scrolling: true
@@ -9,19 +9,17 @@ format:
      - href: https://github.com/yongraegod/Ames_Project
 ---
 # 도시 개요
-Ames basic information
-
-## Row
-
-## Ames 설명
 [에임즈](https://ko.wikipedia.org/wiki/%EC%97%90%EC%9E%84%EC%8A%A4_%28%EC%95%84%EC%9D%B4%EC%98%A4%EC%99%80%EC%A3%BC%29)
 (Ames)는 미국 중서부 아이오와주에 있는 도시이다.
 </br>
 인구 : 51,557(2006).
 </br>
-아이오와주 중부, 스토리 군에 속하며, 주도 Des Moines 북쪽 50km 지점에 있다.
+위치 : 
+아이오와주 중부
+스토리 군에 속하며, 주도 Des Moines 북쪽 50km 지점에 있다.
 </br>
-옥수수 재배와 돼지 사육이 성한 옥수수지대에 위치한다. 에임스는 아이오와 주에서 아이오와시티와 함께 대학도시로 유명하다.
+비고 : 
+옥수수 재배와 돼지 사육이 성한 옥수수 지대에 위치한다. 에임스는 아이오와 주에서 아이오와시티와 함께 대학도시로 유명하다.
 
 ## Row
 
@@ -31,217 +29,547 @@ Ames basic information
 from IPython.display import IFrame
 
 # ames_map.html 파일을 대시보드에 삽입
-IFrame(src='maps/ames_house_price_map.html', width='100%', height='600px')
+IFrame(src='maps/ames_house_price_map_with_legend.html', width='100%', height='600px')
 ```
 
 ### 어떤 가격의 집이 많을까?
-어떤 가격의 집이 많을까?
-![](img/집값구간.png)
+```{python}
+#| title: "가격 구간별 집 갯수(5만불 구간)"
+import plotly.graph_objs as go
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+# !pip install statsmodels
+import statsmodels.api as sm
+import plotly.express as px
+import folium
 
+# Ames 데이터 불러오기
+df = pd.read_csv("../Ames_Project/data/houseprice-with-lonlat.csv")
+
+# 가격 구간별 집 갯수
+# Define the bin edges for the price ranges (0 to max_price with 50,000 intervals)
+bins = np.arange(0, df['Sale_Price'].max() + 50000, 50000)
+
+# Calculate the number of houses in each price range
+price_counts = pd.cut(df['Sale_Price'], bins=bins).value_counts().sort_index()
+
+# Converting the price intervals to strings for better labeling in plotly
+price_intervals = [f'{int(interval.left/1000)}K - {int(interval.right/1000)}K' for interval in price_counts.index]
+
+# Adding a color list to highlight the 100,000 to 150,000 range
+colors = ['skyblue'] * len(price_counts)  # Default color for all bars
+highlight_index = price_counts.index.get_loc(pd.Interval(100000, 150000, closed='right'))
+colors[highlight_index] = 'red'  # Change color for 10~15만 range
+
+# Create the bar plot using plotly.graph_objs
+fig = go.Figure(
+    data=[
+        go.Bar(
+            x=price_intervals,
+            y=price_counts.values,
+            marker_color=colors
+        )
+    ]
+)
+
+# Update layout
+fig.update_layout(
+    xaxis_title="가격 구간 ($)",
+    yaxis_title="집의 갯수",
+    xaxis_tickangle=-60,
+    showlegend=False,
+    font=dict(family="Malgun Gothic")
+)
+```
 
 ### 인구 분포
-인구 분포
 
+::: {.card title="인구 분포"}
 </br>
 ![](img/ames_population.png)
+
 Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 것을 알 수 있다.
+:::
 
+## Row
 
-## 키워드
-Ames Keyword
+::: {.card title="Ames Keyword"}
 
-"# 10~15만 달러의 집이 많음"   "#20대 초반 인구가 많음"
-
-
-# 분석 및 시각화
-
-가성비 있는 집을 찾아줘!
+[Insignt 01] 20~24세 인구 비율이 압도적으로 높다. 
 </br>
-</br>
-- 가장 많은 비율을 차지하는 20~24세 싱글을 위한 가성비 있는 집은 어디에 있을까?
-</br>
-- 각 변수들과 House_Price의 관계를 살펴보자
-</br>
-- 5점 척도 사용
-
-::: {.columns}
-
-### Left Column
-#### Column {.tabset}
-
-```{python}
-#| title: Chart 1
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-
-```{python}
-#| title: Chart 2
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-```{python}
-#| title: Chart 3
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-### Right Column
-#### Column {.tabset}
-
-```{python}
-#| title: Chart 1
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-
-```{python}
-#| title: Chart 2
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-```{python}
-#| title: Chart 3
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
+[Insignt 02] 10~15만 달러의 집값이 상당수 분포해있다.
 
 :::
 
-## row
+# 분석 목표
 
-::: {#layout .columns}
-
-### Left Column
-#### Column {.tabset}
-
-```{python}
-#| title: Chart 1
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
+[ Our Goal ] 20대 솔로가 살 수 있을 상태 좋은 가성비 있는 집을 찾아줘!
+</br>
+[ How? ] - 가성비 집 찾기에 맞는 변수들과 House_Price의 관계 살피기 > 5점 척도 부여하기 > 종합 평가 변수 만들기 
+</br>
 
 
-```{python}
-#| title: Chart 2
-import matplotlib.pyplot as plt
-import numpy as np
+# 변수 분석
+::: {.card title="Sale_Price와 상관계수가 높은 변수들"}
 
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-```{python}
-#| title: Chart 3
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-### Right Column
-#### Column {.tabset}
-
-```{python}
-#| title: Chart 1
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-
-```{python}
-#| title: Chart 2
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
-
-```{python}
-#| title: Chart 3
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-data = np.random.normal(size=100)
-
-plt.hist(data)
-plt.title("Tab 1")
-plt.show()
-```
+<img src="img/house_price_상관관계.png" alt="House Price 상관관계" width="600" />
 
 :::
+
+## Row 
+```{python}
+GrLivArea = "지상 면적"
+Garage_Cars = "차고에 주차 가능한 차 수"
+Overall_Cond = "전반적인 집 컨디션"
+Year_Remod_Add = "리모델링 년도"
+Year_Built = "건축연도"
+```
+
+```{python}
+#| content: valuebox
+#| title: "GrLivArea"
+#| icon: arrows-fullscreen
+#| color: red
+dict(
+  value = GrLivArea
+)
+```
+
+```{python}
+#| content: valuebox
+#| title: "Garage_Cars"
+dict(
+  icon = "car-front",
+  color = "orange",
+  value = Garage_Cars
+)
+```
+
+```{python}
+#| content: valuebox
+#| title: "Overall_Cond"
+dict(
+  icon = "building-check",
+  color = "yellow",
+  value = Overall_Cond
+)
+```
+
+```{python}
+#| content: valuebox
+#| title: "Year_Remod_Add"
+dict(
+  icon = "building-up",
+  color = "green",
+  value = Year_Remod_Add
+)
+```
+
+```{python}
+#| content: valuebox
+#| title: "Year_Built"
+dict(
+  icon = "buildings",
+  color = "primary",
+  value = Year_Built
+)
+```
+
+
+## Row
+```{python}
+#| content: valuebox
+#| title: "GrLivArea"
+#| icon: arrows-fullscreen
+#| color: red
+dict(
+  value = GrLivArea
+)
+```
+
+## Row
+```{python}
+#| title: Best GrLivArea in map
+from IPython.display import IFrame
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/house_gla.html', width='100%', height='600px')
+```
+
+## Row
+
+```{python}
+# 데이터 불러오기 
+house= pd.read_csv("../Ames_Project/data/houseprice-with-lonlat.csv")
+
+# 사용 변수만 추출하기 
+house = house[["Longitude","Latitude",'Gr_Liv_Area','Overall_Cond','Garage_Cars','Year_Built','Neighborhood','Year_Remod_Add','Sale_Price']]
+
+# 100000 이상 150000 미만 집값 추출
+house1015 = house[(house["Sale_Price"] >= 100000) & (house["Sale_Price"] < 150000)]
+
+# 정렬하기 
+house1015 = house1015.sort_values("Gr_Liv_Area", ascending = False)
+```
+
+## Row {.tabset}
+```{python}
+#| title: 01.평당 가격 분포 
+
+# 평당 집값 변수 생성
+house1015['Price_Per_Area'] = house1015['Sale_Price'] / house1015['Gr_Liv_Area']
+
+# 평당 집값 기준으로 평가 변수 부여
+house1015['Score_GrLivArea'] = np.where(house1015['Price_Per_Area'] <= house1015['Price_Per_Area'].quantile(0.2), 5,
+                          np.where(house1015['Price_Per_Area'] <= house1015['Price_Per_Area'].quantile(0.4), 4,
+                          np.where(house1015['Price_Per_Area'] <= house1015['Price_Per_Area'].quantile(0.6), 3,
+                          np.where(house1015['Price_Per_Area'] <= house1015['Price_Per_Area'].quantile(0.8), 2,
+                          1))))
+
+# 상위/하위 10% 가성비 좋은 집들 보기
+GrLivArea_low = house1015['Price_Per_Area'].quantile(0.1)  # 하위 10%의 평당 가격
+GrLivArea_high = house1015['Price_Per_Area'].quantile(0.9)  # 상위 10%의 평당 가격
+
+# 시각화
+
+# 01
+# 평당 가격 분포 히스토그램
+plt.subplots_adjust(left=0.17, bottom=0.17);
+plt.rcParams.update({"font.family" : "Malgun Gothic"}) 
+sns.histplot(house1015['Price_Per_Area'], bins=30, kde=True, color='#F6E96B',edgecolor=None)
+plt.title('평당 가격 분포도', fontsize=10)
+plt.xlabel('평당 가격', fontsize=9)
+plt.ylabel('빈도', fontsize=9)
+plt.show()
+plt.clf()
+```
+
+
+```{python}
+#| title: 02. 점수별 평균 평당 막대그래프
+# 평당 평균 데이터 
+score_grouped = house1015.groupby('Score_GrLivArea')['Price_Per_Area'].mean().reset_index()
+
+# 각 점수별 평균 평당 가격 막대그래프 
+plt.subplots_adjust(left=0.15, bottom=0.16)  # 여백 값은 필요에 맞게 조정 가능
+gla_palette = sns.color_palette(["#A5DD9B", "#C5EBAA", "#F6F193", "#F2C18D"])
+sns.barplot(data=score_grouped, x='Score_GrLivArea', y='Price_Per_Area', hue ='Score_GrLivArea', palette= gla_palette)
+plt.title('각 점수별 평균 평당 가격', fontsize=12)
+plt.xlabel('평가 점수', fontsize=9)
+plt.ylabel('평균 평당 가격', fontsize=9)
+# 범례 크기 조정
+plt.legend(title="Score_year_remod", prop={'size': 6}, title_fontsize='6')
+plt.show()
+plt.clf()
+```
+
+```{python}
+#| title: 03.회귀직선 
+
+# 회귀직선 
+# fig 활용 
+fig = px.scatter(
+    house1015 ,
+    x="Gr_Liv_Area",
+    y="Sale_Price",
+    trendline="ols"
+)
+
+# 레이아웃 업데이트 
+fig.update_layout(
+    title=dict(text="<b>GrLivArea vs SalePrice</b>", font=dict(color="#A1C398")),
+    paper_bgcolor="#FEFDED",  # 전체 배경색
+    plot_bgcolor="#C6EBC5", # 플롯 영역 배경색
+    font=dict(color="#C6EBC5"),
+    xaxis=dict(
+        title=dict(text="GrLivArea", font=dict(color="#A1C398")),  # x축 제목 글씨 색상
+        tickfont=dict(color="#C6EBC5"), # x축 눈금 글씨 색상:
+        gridcolor='#FEFDED'  # 그리드 색깔 조정
+    ),
+    yaxis=dict(
+        title=dict(text="SalePrice", font=dict(color="#A1C398")), 
+        tickfont=dict(color="#C6EBC5"),
+        gridcolor='#FEFDED'  # 그리드 색깔 조정
+    ),
+    legend=dict(font=dict(color="#A1C398"))
+)
+# 점 크기 및 투명도 설정
+fig.update_traces(marker=dict(size=7, opacity = 0.5))
+```
+
+## Row
+```{python}
+#| content: valuebox
+#| title: "Garage_Cars"
+dict(
+  icon = "car-front",
+  color = "orange",
+  value = Garage_Cars
+)
+```
+
+## Row {height = 20%}
+```{python}
+#| title: GarageCars 지도
+from IPython.display import IFrame
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/house_car.html', width='100%', height='600px')
+```
+
+## Row {.tabset}
+```{python}
+#| title: 01.빈도 막대그래프
+# 주차가능 차 수에 따른 빈도 막대그래프 
+frequency = house1015.groupby('Garage_Cars').size()
+
+sns.barplot(frequency)
+plt.title('10만~15만 달러 주택의 주차 가능 차 수에 따른 빈도수',size = 8)
+plt.xlabel('Garage_Cars', fontsize=7)
+plt.show()
+plt.clf()
+```
+
+```{python}
+#| title: 02. 점수 분포도 
+house1015['Score_GarageCars'] = np.where(house1015['Garage_Cars'] == 0, 1,
+                             np.where((house1015['Garage_Cars'] >= 1) & (house1015['Garage_Cars'] <= 2), 3,
+                             np.where((house1015['Garage_Cars'] >= 3) & (house1015['Garage_Cars'] <= 5), 5, None)))
+
+frequency = house1015.groupby('Score_GarageCars').size()
+
+plt.figure(figsize=(8, 5))
+sns.barplot(frequency)
+plt.title('점수 분포')
+plt.xlabel('점수')
+plt.ylabel('빈도')
+plt.show()
+plt.clf()
+```
+
+## Row
+```{python}
+#| content: valuebox
+#| title: "Overall_Cond"
+dict(
+  icon = "building-check",
+  color = "yellow",
+  value = Overall_Cond
+)
+```
+
+## Row {height = 20%}
+
+```{python}
+#| title: Best Overall_Cond in map
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/house_cond.html', width='100%', height='600px')
+```
+
+## Row {.tabset}
+```{python}
+#| title: 01.빈도 막대그래프
+
+house1015["Score_Overall_Cond"] = np.where(house1015["Overall_Cond"] == 'Very_Poor', 1,
+                                   np.where(house1015["Overall_Cond"] == "Poor", 1,
+                                   np.where(house1015["Overall_Cond"] == "Fair", 2,
+                                   np.where(house1015["Overall_Cond"] == "Below_Average", 2,
+                                   np.where(house1015["Overall_Cond"] == "Average", 3,
+                                   np.where(house1015["Overall_Cond"] == "Above_Average", 3,
+                                   np.where(house1015["Overall_Cond"] == "Good", 4,
+                                   np.where(house1015["Overall_Cond"] == "Very_Good", 4, 5))))))))
+
+# x,y값 지정 
+x = house1015["Score_Overall_Cond"]
+y = house1015["Sale_Price"]
+
+sns.countplot(x = x, data = house1015)
+plt.rcParams.update({"font.family" : "Malgun Gothic"})    
+plt.title("10만 ~ 15만 달러 주택의 컨디션 점수의 빈도수", fontsize = 8)
+plt.xlabel("점수")
+plt.ylabel("빈도")
+plt.show()
+plt.clf()
+```
+
+
+```{python}
+#| title: 02. 선그래프 
+plt.subplots_adjust(left=0.20, bottom=0.20)
+sns.lineplot(x = x, y = y, data = house1015, errorbar = None, marker = "o", color="#FEBBCC")
+plt.rcParams.update({"font.family" : "Malgun Gothic"})    
+plt.title("10만 ~ 15만 달러 주택의 집값별 컨디션 점수", fontsize = 10)
+plt.xticks(range(1, 6, 1))
+plt.yticks(range(100000, 150000, 10000))
+plt.xlabel("점수", fontsize = 9)
+plt.ylabel("집값", fontsize = 9)
+plt.show()
+plt.clf()
+```
+
+## Row
+
+```{python}
+#| content: valuebox
+#| title: "Year_Remod_Add"
+dict(
+  icon = "building-up",
+  color = "green",
+  value = Year_Remod_Add
+)
+```
+
+## Row {height = 20%}
+
+```{python}
+#| title: Best Year_Remod_Add in map
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/house_remod.html', width='100%', height='600px')
+```
+
+## Row {.tabset}
+```{python}
+#| title: 01. 막대그래프 
+
+# 리모델링 연도에 따른 가성비 집
+house[["Year_Remod_Add"]].max() #2010
+house[["Year_Remod_Add"]].min() #1950
+
+#각 집의 상태를 평가한 점수 부여
+def calculate_condition_score(row):
+    if row["Year_Remod_Add"] > 1998:
+        return 5  # 리모델링이 최근에 이루어진 경우
+    elif row["Year_Remod_Add"] > 1986:
+        return 4
+    elif row["Year_Remod_Add"] > 1974:
+        return 3
+    elif row["Year_Remod_Add"] > 1962:
+        return 2
+    else:
+        return 1  # 오래된 주택일 경우
+
+house1015["Score_year_remod"] = house1015.apply(calculate_condition_score, axis=1)
+
+custom_palette = sns.color_palette(["#FEFFD2", "#FFEEA9", "#FFBF78", "#FF7D29"])
+sns.countplot(x="Score_year_remod", data=house1015, hue="Score_year_remod", palette=custom_palette)
+
+# 한글 폰트 설정
+plt.rcParams.update({"font.family": "Malgun Gothic"})    
+plt.title("10만 ~ 15만 달러 주택의 리모델링 점수의 빈도수", fontsize=10)
+plt.xlabel("점수", fontsize=8)
+plt.ylabel("빈도", fontsize=8)
+
+# 범례 크기 조정
+plt.legend(title="Score_year_remod", prop={'size': 6}, title_fontsize='6')
+
+# 막대 그래프 둥글게 처리
+for patch in plt.gca().patches:
+    patch.set_linewidth(1)
+    patch.set_edgecolor('white')
+    patch.set_capstyle('round')
+    
+plt.show()
+plt.clf()
+```
+
+```{python}
+#| title: 02. 선그래프 
+
+sns.lineplot(x = house1015["Score_year_remod"], 
+             y = house1015["Sale_Price"], 
+             data = house1015, errorbar = None, 
+             marker = "o", color="#FF7D29")
+plt.rcParams.update({"font.family" : "Malgun Gothic"})
+plt.subplots_adjust(left=0.22, bottom=0.17)
+plt.title("10만 ~ 15만 달러 주택의 집값별 리모델링 평가 점수", fontsize = 10)
+plt.xticks(range(1, 6, 1))
+plt.yticks(range(100000, 150000, 10000))
+plt.xlabel("점수", fontsize = 9)
+plt.ylabel("집값", fontsize = 9)
+plt.show()
+plt.clf()
+```
+
+## Row
+```{python}
+#| content: valuebox
+#| title: "Year_Built"
+dict(
+  icon = "buildings",
+  color = "primary",
+  value = Year_Built
+)
+```
+
+## Row {height = 20%}
+```{python}
+#| title: Best Year_Built in map
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/house_built.html', width='100%', height='600px')
+```
+
+## Row {.tabset}
+```{python}
+#| title: 01. 막대 그래프 
+
+# 년도 별 점수 부여하기 
+ ## 최대/최소값 확인
+built_min = house1015['Year_Built'].min() # 1872
+built_max = house1015['Year_Built'].max() # 2008
+ ## 구간 구하기 
+(built_max - built_min) / 5 # 27.2
+np.arange(1872, 2009, 27.2)
+
+x_1 = np.arange(1872, 1900)
+x_2 = np.arange(1900, 1927)
+x_3 = np.arange(1927, 1954)
+x_4 = np.arange(1954, 1981)
+x_5 = np.arange(1981, 2009)
+
+# 평가 변수 부여하기 
+## 방법 1
+house1015["Score_Year_Built"] = np.where(house1015["Year_Built"].isin(x_1), 1,
+                            np.where(house1015["Year_Built"].isin(x_2), 2,
+                            np.where(house1015["Year_Built"].isin(x_3), 3,
+                            np.where(house1015["Year_Built"].isin(x_4), 4, 5
+                            ))))
+
+# x,y값 지정 
+x1 = house1015["Score_Year_Built"]
+y1 = house1015["Sale_Price"]
+
+sns.countplot(x = x1, data = house1015)
+plt.rcParams.update({"font.family" : "Malgun Gothic"})    
+plt.title("10만 ~ 15만 달러 주택의 건축년도 점수의 빈도수")
+plt.xlabel("점수")
+plt.ylabel("빈도")
+plt.show()
+plt.clf()
+```
+
+```{python}
+#| title: 02. 선 그래프
+sns.lineplot(x = x1, y = y1, data = house1015, errorbar = None, marker = "o")
+plt.rcParams.update({"font.family" : "Malgun Gothic"})    
+plt.title("10만 ~ 15만 달러 주택의 집값별 건축년도 점수")
+plt.xticks(range(1, 6, 1))
+plt.yticks(range(100000, 150000, 10000))
+plt.xlabel("점수")
+plt.ylabel("집값")
+plt.show()
+plt.clf()
+```
+
+# 종합평가
+```{python}
+#| title: 종합평가 지도
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/map_with_final.html', width='100%', height='600px')
+```
