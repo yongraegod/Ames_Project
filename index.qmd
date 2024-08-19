@@ -339,7 +339,22 @@ fig.update_traces(marker=dict(size=7, opacity = 0.5))
 
 ### Right Column
 ::: {.card title="설명"}
-이런저런 설명하기
+-Gr_Liv_Area 기준으로 점수 부여 (5점이 가장 넓고, 1점이 가장 좁음)
+
+-가격 대비 면적 계산 (면적 당 가격을 구하고, 그 역수로 면적 대비 가격 지표를 만듦)
+</br>
+-평당 집값 기준으로 평가 변수를 부여
+</br>
+-가장 낮은 평당 집값 기준으로 5점 부여
+</br>
+-상위/하위 10% 가성비 좋은 집들 보기
+
+```{python}
+GrLivArea_low = house1015['Price_Per_Area'].quantile(0.1)  # 하위 10%의 평당 가격 
+np.float64(77.23428775483703)
+GrLivArea_high = house1015['Price_Per_Area'].quantile(0.9)  # 상위 10%의 평당 가격
+np.float64(146.3170006516781)
+```
 :::
 
 :::
@@ -451,7 +466,7 @@ house1015["Score_Overall_Cond"] = np.where(house1015["Overall_Cond"] == 'Very_Po
 x = house1015["Score_Overall_Cond"]
 y = house1015["Sale_Price"]
 
-sns.countplot(x = x, data = house1015)
+sns.countplot(x = x, data = house1015, hue = house1015["Score_Overall_Cond"])
 plt.rcParams.update({"font.family" : "Malgun Gothic"})    
 plt.title("10만 ~ 15만 달러 주택의 컨디션 점수의 빈도수", fontsize = 8)
 plt.xlabel("점수")
@@ -476,7 +491,25 @@ plt.clf()
 ```
 ### Right Column
 ::: {.card title="설명"}
-이런저런 설명하기
+Overall_Cond을 기준으로 점수를 부여
+
+Very Poor, Poor = 1점
+</br>
+Fair, Below Average = 2점
+</br>
+Average, Above Average = 3점
+</br>
+Good, Very Good = 4점
+</br>
+Excellent, Very Excellent = 5점
+
+빈도 그래프를 확인한 결과 3~4점이 압도적으로 많은 것을 확인
+
+선 그래프를 확인해보니 3 ~ 5점 사이의 집값 변화 미비
+
+때문에 4, 5점 의 컨디션 점수를 갖춘 집이 가성비
+
+
 :::
 
 :::
@@ -553,7 +586,7 @@ plt.clf()
 
 ```{python}
 #| title: 02. 선그래프 
-
+#| #| #| #| #| 
 sns.lineplot(x = house1015["Score_year_remod"], 
              y = house1015["Sale_Price"], 
              data = house1015, errorbar = None, 
@@ -571,7 +604,15 @@ plt.clf()
 
 ### Right Column
 ::: {.card title="설명"}
-이런저런 설명하기
+# 리모델링 연도에 따른 가성비 집
+
+house[["Year_Remod_Add"]].max() #2010
+house[["Year_Remod_Add"]].min() #1950
+</br>
+-리모델링이 최근에 이뤄진 경우 5점 부여, 오래된 경우 1점 부여
+</br>
+-단,리모델링 후 상태가 호전으로 바뀐다는 전제 하에 진행
+
 :::
 
 :::
@@ -653,10 +694,13 @@ plt.clf()
 
 ### Right Column
 ::: {.card title="설명"}
-이런저런 설명하기
+Year_Built를 기준으로 점수를 부여
+
 :::
 
 :::
+
+
 
 # 종합평가
 
@@ -687,37 +731,6 @@ IFrame(src='maps/map_with_final.html', width='100%', height='600px')
 
 :::
 
-
-## Row
-
-::: {.columns}
-
-### Column1
-```{python}
-#| title: Score_Overall_Cond
-IFrame(src='maps/house1015_Overall.html', width='100%', height='600px')
-```
-
-### Column2
-```{python}
-#| title: Score_GrLivArea
-IFrame(src='maps/house1015_GrLivArea.html', width='100%', height='600px')
-```
-
-### Column3
-```{python}
-#| title: Score_year_remod
-IFrame(src='maps/house1015_GrLivArea.html', width='100%', height='600px')
-```
-
-### Column4
-```{python}
-#| title: Score_Year_Built
-IFrame(src='maps/house1015_Year_Built.html', width='100%', height='600px')
-```
-
-:::
-
 ## Row
 
 2. Ames시의 가성비 Top 6
@@ -731,29 +744,13 @@ IFrame(src='maps/my_map_top6.html', width='100%', height='600px')
 ```
 
 ### Right Column2
-::: {.card title="설명"}
-▣ Top 10 집 정보
-   Longitude   Latitude Neighborhood  Sale_Price  
-</br>
-1. -93.643960  42.054514     Somerset      147000                                         
-</br>
-2. -93.670039  42.018812      Edwards      130000 
-</br>
-3. -93.669985  42.018810      Edwards      130000 
-</br>
-4. -93.669960  42.018810      Edwards      137500
-</br>
-5. -93.670063  42.018813      Edwards      134000
-</br>
-6. -93.669924  42.018809      Edwards      130000
-</br>
-7. -93.622312  42.042114   North_Ames      145000 
-</br>
-8. -93.659210  42.034561       Sawyer      130500
-</br>
-9. -93.607058  42.027227     Old_Town      146500
-</br>
-10. -93.667980  42.026548  Clear_Creek     143000
+::: {.card title="Top 6 집 정보"}
+```{python}
+# top6 데이터 불러오기
+top_6_houses = pd.read_csv("../Ames_Project/data/top_6_houses.csv")
+
+top_6_houses
+```
 
 :::
 
@@ -781,5 +778,35 @@ IFrame(src='maps/top_2_houses_map.html', width='100%', height='600px')
 
 ▣ 41개 나오는 이유: Landmark, Stone_Brook, Timberland에 10-15만 집이 1개뿐
 :::
+
+:::
+
+# 변수별 중요도
+
+::: {.columns}
+
+### Column1
+```{python}
+#| title: Score_Overall_Cond
+IFrame(src='maps/house1015_Overall.html', width='100%', height='600px')
+```
+
+### Column2
+```{python}
+#| title: Score_GrLivArea
+IFrame(src='maps/house1015_GrLivArea.html', width='100%', height='600px')
+```
+
+### Column3
+```{python}
+#| title: Score_year_remod
+IFrame(src='maps/house1015_GrLivArea.html', width='100%', height='600px')
+```
+
+### Column4
+```{python}
+#| title: Score_Year_Built
+IFrame(src='maps/house1015_Year_Built.html', width='100%', height='600px')
+```
 
 :::

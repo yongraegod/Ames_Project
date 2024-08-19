@@ -604,6 +604,7 @@ top_value_houses
 
 # 종합 점수 상위 6개 집의 데이터 선택
 top_6_houses = top_value_houses.head(6)
+pd.set_option('display.max_columns', 10)
 top_6_houses
 
 my_map = folium.Map(location=[42.034722, -93.62],
