@@ -482,30 +482,81 @@ my_map.save("../maps/map_with_final.html")
 # --------------------------------------------------
 # Score_Overall_Cond
 # --------------------------------------------------
+my_map = folium.Map(location=[42.034722, -93.62],
+                     zoom_start=12,
+                     tiles='cartodbpositron')
+
+# 동네별 가운데 위치
+center = house.groupby('Neighborhood')[['Longitude', 'Latitude']].median()
+center
+
+# 인덱스와 좌표를 추출
+neighborhoods = center.index
+longitudes = center['Longitude']
+latitudes = center['Latitude']
+
+## 지도2
+# zip을 사용하여 텍스트 추가 (only text)
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: blue;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map)
+
+# 맵 저장
+my_map.save("../maps/map_with_text.html")
+
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: black;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map)
+
+# 2. GeoDataFrame 생성
+geometry = [Point(xy) for xy in zip(house['Longitude'], house['Latitude'])]
+geo_df = gpd.GeoDataFrame(house, geometry=geometry)
+
+# 3. 동네별로 Convex Hull 생성
+neighborhoods = geo_df['Neighborhood'].unique()
+
+# 빈 리스트 생성
+boundary_polygons = []
+
+for neighborhood in neighborhoods:
+    # 동네별 데이터 필터링
+    df_neigh = geo_df[geo_df['Neighborhood'] == neighborhood]
+    
+    # Convex Hull 생성
+    if len(df_neigh) > 2:  # Convex Hull은 3개 이상의 점이 필요
+        convex_hull = df_neigh.geometry.union_all().convex_hull
+        boundary_polygons.append((neighborhood, convex_hull))
+
+# 4. folium 지도 생성
+#my_map = folium.Map(location=[geo_df.geometry.y.mean(), geo_df.geometry.x.mean()], zoom_start=12,tiles='cartodbpositron')
+
+# 5. 경계 그리기
+for neighborhood, poly in boundary_polygons:
+    folium.Polygon(locations=[(point[1], point[0]) for point in poly.exterior.coords],
+                   color='blue', weight=2, fill=True, fill_opacity=0.1).add_to(my_map)
+
+# 6. 맵 저장
+# my_map.save("../maps/my_map.html")
 
 house1015_Overall = house1015.sort_values(by=['Score_Overall_Cond', 'Total_Score',"Sale_Price", 'Neighborhood'], ascending=False).reset_index(drop=True).head(10)
 house1015_Overall[["Score_Overall_Cond",'Total_Score',"Sale_Price", 'Neighborhood']]
-
-
-## 지도
-# 지도의 중심 위치를 결정하기 위해 중간값을 사용
-map_center = [house1015_Overall['Latitude'].mean(), house1015_Overall['Longitude'].mean()]
-
-# 지도를 생성 (지도 중심 위치와 줌 레벨 설정)
-mymap1 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
-
-# 마커 클러스터를 사용해 지도에 마커를 그룹화
-# marker_cluster = MarkerCluster().add_to(mymap)
 
 # 상위 10개 집 위치에 마커 추가
 for idx, row in house1015_Overall.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
         popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_Overall_Cond']:.2f}"
-    ).add_to(mymap1)
-
+    ).add_to(my_map)
+    
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
-mymap1.save("../maps/house1015_Overall.html")
+my_map.save("../maps/house1015_Overall.html")
+
 
 # csv로 저장
 df = house1015_Overall[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
@@ -517,29 +568,82 @@ df.to_csv('../data/house1015_Overall.csv', index=False)
 # --------------------------------------------------
 # Score_GrLivArea
 # --------------------------------------------------
+my_map2 = folium.Map(location=[42.034722, -93.62],
+                     zoom_start=12,
+                     tiles='cartodbpositron')
+
+# 동네별 가운데 위치
+center = house.groupby('Neighborhood')[['Longitude', 'Latitude']].median()
+center
+
+# 인덱스와 좌표를 추출
+neighborhoods = center.index
+longitudes = center['Longitude']
+latitudes = center['Latitude']
+
+## 지도2
+# zip을 사용하여 텍스트 추가 (only text)
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: blue;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map2)
+
+# 맵 저장
+my_map2.save("../maps/map2_with_text.html")
+
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: black;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map2)
+
+# 2. GeoDataFrame 생성
+geometry = [Point(xy) for xy in zip(house['Longitude'], house['Latitude'])]
+geo_df = gpd.GeoDataFrame(house, geometry=geometry)
+
+# 3. 동네별로 Convex Hull 생성
+neighborhoods = geo_df['Neighborhood'].unique()
+
+# 빈 리스트 생성
+boundary_polygons = []
+
+for neighborhood in neighborhoods:
+    # 동네별 데이터 필터링
+    df_neigh = geo_df[geo_df['Neighborhood'] == neighborhood]
+    
+    # Convex Hull 생성
+    if len(df_neigh) > 2:  # Convex Hull은 3개 이상의 점이 필요
+        convex_hull = df_neigh.geometry.union_all().convex_hull
+        boundary_polygons.append((neighborhood, convex_hull))
+
+# 4. folium 지도 생성
+#my_map = folium.Map(location=[geo_df.geometry.y.mean(), geo_df.geometry.x.mean()], zoom_start=12,tiles='cartodbpositron')
+
+# 5. 경계 그리기
+for neighborhood, poly in boundary_polygons:
+    folium.Polygon(locations=[(point[1], point[0]) for point in poly.exterior.coords],
+                   color='blue', weight=2, fill=True, fill_opacity=0.1).add_to(my_map2)
+
+# 6. 맵 저장
+# my_map2.save("../maps/my_map2.html")
+
 
 house1015_GrLivArea = house1015.sort_values(by=['Score_GrLivArea', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
 house1015_GrLivArea[["Score_GrLivArea",'Total_Score',"Sale_Price", 'Neighborhood']]
 
-## 지도
-# 지도의 중심 위치를 결정하기 위해 중간값을 사용
-map_center = [house1015_GrLivArea['Latitude'].mean(), house1015_GrLivArea['Longitude'].mean()]
-
-# 지도를 생성 (지도 중심 위치와 줌 레벨 설정)
-mymap2 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
-
-# 마커 클러스터를 사용해 지도에 마커를 그룹화
-# marker_cluster = MarkerCluster().add_to(mymap)
 
 # 상위 10개 집 위치에 마커 추가
 for idx, row in house1015_GrLivArea.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
         popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_GrLivArea']:.2f}"
-    ).add_to(mymap2)
+    ).add_to(my_map2)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
-mymap2.save("../maps/house1015_GrLivArea.html")
+my_map2.save("../maps/house1015_GrLivArea.html")
 
 # csv로 저장
 df = house1015_GrLivArea[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
@@ -550,29 +654,76 @@ df.to_csv('../data/house1015_GrLivArea.csv', index=False)
 # --------------------------------------------------
 # Score_year_remod
 # --------------------------------------------------
+my_map3 = folium.Map(location=[42.034722, -93.62],
+                     zoom_start=12,
+                     tiles='cartodbpositron')
+
+# 동네별 가운데 위치
+center = house.groupby('Neighborhood')[['Longitude', 'Latitude']].median()
+center
+
+# 인덱스와 좌표를 추출
+neighborhoods = center.index
+longitudes = center['Longitude']
+latitudes = center['Latitude']
+
+## 지도2
+# zip을 사용하여 텍스트 추가 (only text)
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: blue;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map3)
+
+# 맵 저장
+my_map3.save("../maps/map3_with_text.html")
+
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: black;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map3)
+
+# 2. GeoDataFrame 생성
+geometry = [Point(xy) for xy in zip(house['Longitude'], house['Latitude'])]
+geo_df = gpd.GeoDataFrame(house, geometry=geometry)
+
+# 3. 동네별로 Convex Hull 생성
+neighborhoods = geo_df['Neighborhood'].unique()
+
+# 빈 리스트 생성
+boundary_polygons = []
+
+for neighborhood in neighborhoods:
+    # 동네별 데이터 필터링
+    df_neigh = geo_df[geo_df['Neighborhood'] == neighborhood]
+    
+    # Convex Hull 생성
+    if len(df_neigh) > 2:  # Convex Hull은 3개 이상의 점이 필요
+        convex_hull = df_neigh.geometry.union_all().convex_hull
+        boundary_polygons.append((neighborhood, convex_hull))
+
+# 5. 경계 그리기
+for neighborhood, poly in boundary_polygons:
+    folium.Polygon(locations=[(point[1], point[0]) for point in poly.exterior.coords],
+                   color='blue', weight=2, fill=True, fill_opacity=0.1).add_to(my_map3)
+
 
 house1015_year_remod = house1015.sort_values(by=['Score_year_remod', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
 house1015_year_remod[["Score_year_remod",'Total_Score',"Sale_Price", 'Neighborhood']]
 
-## 지도
-# 지도의 중심 위치를 결정하기 위해 중간값을 사용
-map_center = [house1015_year_remod['Latitude'].mean(), house1015_year_remod['Longitude'].mean()]
-
-# 지도를 생성 (지도 중심 위치와 줌 레벨 설정)
-mymap3 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
-
-# 마커 클러스터를 사용해 지도에 마커를 그룹화
-# marker_cluster = MarkerCluster().add_to(mymap)
 
 # 상위 10개 집 위치에 마커 추가
 for idx, row in house1015_year_remod.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
          popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_year_remod']:.2f}"
-    ).add_to(mymap3)
+    ).add_to(my_map3)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
-mymap3.save("../maps/house1015_year_remod")
+my_map3.save("../maps/house1015_year_remod.html")
 
 # csv로 저장
 df = house1015_year_remod[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
@@ -584,6 +735,63 @@ df.to_csv('../data/house1015_year_remod.csv', index=False)
 # -------------------------------------------------
 # Score_Year_Built
 # -------------------------------------------------
+my_map4 = folium.Map(location=[42.034722, -93.62],
+                     zoom_start=12,
+                     tiles='cartodbpositron')
+
+# 동네별 가운데 위치
+center = house.groupby('Neighborhood')[['Longitude', 'Latitude']].median()
+center
+
+# 인덱스와 좌표를 추출
+neighborhoods = center.index
+longitudes = center['Longitude']
+latitudes = center['Latitude']
+
+## 지도2
+# zip을 사용하여 텍스트 추가 (only text)
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: blue;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map4)
+
+# 맵 저장
+my_map4.save("../maps/map4_with_text.html")
+
+for neighborhood, lon, lat in zip(neighborhoods, longitudes, latitudes):
+    folium.Marker(
+        location=[lat, lon],
+        icon=folium.DivIcon(html=f'<div style="font-size: 12pt; color: black;">{neighborhood}</div>'),
+        icon_size=(0, 0)
+    ).add_to(my_map4)
+
+# 2. GeoDataFrame 생성
+geometry = [Point(xy) for xy in zip(house['Longitude'], house['Latitude'])]
+geo_df = gpd.GeoDataFrame(house, geometry=geometry)
+
+# 3. 동네별로 Convex Hull 생성
+neighborhoods = geo_df['Neighborhood'].unique()
+
+# 빈 리스트 생성
+boundary_polygons = []
+
+for neighborhood in neighborhoods:
+    # 동네별 데이터 필터링
+    df_neigh = geo_df[geo_df['Neighborhood'] == neighborhood]
+    
+    # Convex Hull 생성
+    if len(df_neigh) > 2:  # Convex Hull은 3개 이상의 점이 필요
+        convex_hull = df_neigh.geometry.union_all().convex_hull
+        boundary_polygons.append((neighborhood, convex_hull))
+
+# 5. 경계 그리기
+for neighborhood, poly in boundary_polygons:
+    folium.Polygon(locations=[(point[1], point[0]) for point in poly.exterior.coords],
+                   color='blue', weight=2, fill=True, fill_opacity=0.1).add_to(my_map4)
+
+
 
 house1015_Year_Built = house1015.sort_values(by=['Score_Year_Built', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
 house1015_Year_Built[["Score_Year_Built",'Total_Score',"Sale_Price", 'Neighborhood']]
@@ -592,21 +800,16 @@ house1015_Year_Built[["Score_Year_Built",'Total_Score',"Sale_Price", 'Neighborho
 # 지도의 중심 위치를 결정하기 위해 중간값을 사용
 map_center = [house1015_year_remod['Latitude'].mean(), house1015_year_remod['Longitude'].mean()]
 
-# 지도를 생성 (지도 중심 위치와 줌 레벨 설정)
-mymap4 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
-
-# 마커 클러스터를 사용해 지도에 마커를 그룹화
-# marker_cluster = MarkerCluster().add_to(mymap)
 
 # 상위 10개 집 위치에 마커 추가
 for idx, row in house1015_Year_Built.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
         popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_Year_Built']:.2f}"
-    ).add_to(mymap4)
+    ).add_to(my_map4)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
-mymap4.save("../maps/house1015_Year_Built.html")
+my_map4.save("../maps/house1015_Year_Built.html")
 
 # csv로 저장
 df = house1015_Year_Built[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
