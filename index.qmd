@@ -24,7 +24,7 @@ format:
 ## Row
 
 ```{python}
-#| title: "Ames Map 집값 지도"
+#| title: "Ames 집값 지도"
 #| padding: 0px
 from IPython.display import IFrame
 
