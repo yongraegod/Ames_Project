@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_2fb7fb85b51e96a7bf20a13155b660ef {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_2fb7fb85b51e96a7bf20a13155b660ef" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_2fb7fb85b51e96a7bf20a13155b660ef = L.map(
+                "map_2fb7fb85b51e96a7bf20a13155b660ef",
+                {
+                    center: [42.0280408, -93.6513925],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_11ae6c3815c2d116afec9a0a4b6a78b7 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 20, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_11ae6c3815c2d116afec9a0a4b6a78b7.addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+            var marker_09177f3c8b367eb521fb4eae3b4e08b2 = L.marker(
+                [42.054514, -93.64396],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_bb0265fe108c54d76c2540cda0c6d79b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_31a87f3cb4cb9f2a31cbdc6e901efbb2 = $(`<div id="html_31a87f3cb4cb9f2a31cbdc6e901efbb2" style="width: 100.0%; height: 100.0%;">Price: $147,000 Latitude: 42.054514 Longitude: -93.64396 Score: 5.00</div>`)[0];
+                popup_bb0265fe108c54d76c2540cda0c6d79b.setContent(html_31a87f3cb4cb9f2a31cbdc6e901efbb2);
+            
+        
+
+        marker_09177f3c8b367eb521fb4eae3b4e08b2.bindPopup(popup_bb0265fe108c54d76c2540cda0c6d79b)
+        ;
+
+        
+    
+    
+            marker_09177f3c8b367eb521fb4eae3b4e08b2.bindTooltip(
+                `<div>
+                     Lat: 42.054514, Lon: -93.64396
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_91751a16ad17df3ef54ff39dea7207e1 = L.marker(
+                [42.01881, -93.66996],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_77c63406e8d6d3727912d350a9dee956 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f04bd7c444181fe7968b1328e79faa52 = $(`<div id="html_f04bd7c444181fe7968b1328e79faa52" style="width: 100.0%; height: 100.0%;">Price: $137,500 Latitude: 42.01881 Longitude: -93.66996 Score: 5.00</div>`)[0];
+                popup_77c63406e8d6d3727912d350a9dee956.setContent(html_f04bd7c444181fe7968b1328e79faa52);
+            
+        
+
+        marker_91751a16ad17df3ef54ff39dea7207e1.bindPopup(popup_77c63406e8d6d3727912d350a9dee956)
+        ;
+
+        
+    
+    
+            marker_91751a16ad17df3ef54ff39dea7207e1.bindTooltip(
+                `<div>
+                     Lat: 42.01881, Lon: -93.66996
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c4b624d636411288f288b41cd2a6c1f4 = L.marker(
+                [42.018813, -93.670063],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_f5cd00159566cbfc0b271d0bbc482ae6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_92e427e0f66a552d184ca0f4f2dcce2a = $(`<div id="html_92e427e0f66a552d184ca0f4f2dcce2a" style="width: 100.0%; height: 100.0%;">Price: $134,000 Latitude: 42.018813 Longitude: -93.670063 Score: 5.00</div>`)[0];
+                popup_f5cd00159566cbfc0b271d0bbc482ae6.setContent(html_92e427e0f66a552d184ca0f4f2dcce2a);
+            
+        
+
+        marker_c4b624d636411288f288b41cd2a6c1f4.bindPopup(popup_f5cd00159566cbfc0b271d0bbc482ae6)
+        ;
+
+        
+    
+    
+            marker_c4b624d636411288f288b41cd2a6c1f4.bindTooltip(
+                `<div>
+                     Lat: 42.018813, Lon: -93.670063
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_b4604816a2237f7d37cdfaeddc6a6b61 = L.marker(
+                [42.018812, -93.670039],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_72fd20e78a9170a0f8840ee89ee4636b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5ca72f31765e9c0c3289ee29e9d69ad6 = $(`<div id="html_5ca72f31765e9c0c3289ee29e9d69ad6" style="width: 100.0%; height: 100.0%;">Price: $130,000 Latitude: 42.018812 Longitude: -93.670039 Score: 5.00</div>`)[0];
+                popup_72fd20e78a9170a0f8840ee89ee4636b.setContent(html_5ca72f31765e9c0c3289ee29e9d69ad6);
+            
+        
+
+        marker_b4604816a2237f7d37cdfaeddc6a6b61.bindPopup(popup_72fd20e78a9170a0f8840ee89ee4636b)
+        ;
+
+        
+    
+    
+            marker_b4604816a2237f7d37cdfaeddc6a6b61.bindTooltip(
+                `<div>
+                     Lat: 42.018812, Lon: -93.670039
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_34408a65660eace8e2753ef5598eba37 = L.marker(
+                [42.01881, -93.669985],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_c5379a969ad37f7ccd93a9058b48f867 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d2155cf7e6c88212bacabbedfc5bd338 = $(`<div id="html_d2155cf7e6c88212bacabbedfc5bd338" style="width: 100.0%; height: 100.0%;">Price: $130,000 Latitude: 42.01881 Longitude: -93.669985 Score: 5.00</div>`)[0];
+                popup_c5379a969ad37f7ccd93a9058b48f867.setContent(html_d2155cf7e6c88212bacabbedfc5bd338);
+            
+        
+
+        marker_34408a65660eace8e2753ef5598eba37.bindPopup(popup_c5379a969ad37f7ccd93a9058b48f867)
+        ;
+
+        
+    
+    
+            marker_34408a65660eace8e2753ef5598eba37.bindTooltip(
+                `<div>
+                     Lat: 42.01881, Lon: -93.669985
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_382b8fc61935219dd2c87de5e2e7d80b = L.marker(
+                [42.018809, -93.669924],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_f3bbcb2f385c6a6a1a278e189db3d9b7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ec5853304266aeb7b1006de8fb57af28 = $(`<div id="html_ec5853304266aeb7b1006de8fb57af28" style="width: 100.0%; height: 100.0%;">Price: $130,000 Latitude: 42.018809 Longitude: -93.669924 Score: 5.00</div>`)[0];
+                popup_f3bbcb2f385c6a6a1a278e189db3d9b7.setContent(html_ec5853304266aeb7b1006de8fb57af28);
+            
+        
+
+        marker_382b8fc61935219dd2c87de5e2e7d80b.bindPopup(popup_f3bbcb2f385c6a6a1a278e189db3d9b7)
+        ;
+
+        
+    
+    
+            marker_382b8fc61935219dd2c87de5e2e7d80b.bindTooltip(
+                `<div>
+                     Lat: 42.018809, Lon: -93.669924
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_58421b17359e6b691a29251a6e7a459c = L.marker(
+                [42.027227, -93.607058],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_4850f2329be2592ff13001b67e000057 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_caec8d3ac406420e432753eb3e25cb59 = $(`<div id="html_caec8d3ac406420e432753eb3e25cb59" style="width: 100.0%; height: 100.0%;">Price: $146,500 Latitude: 42.027227 Longitude: -93.607058 Score: 5.00</div>`)[0];
+                popup_4850f2329be2592ff13001b67e000057.setContent(html_caec8d3ac406420e432753eb3e25cb59);
+            
+        
+
+        marker_58421b17359e6b691a29251a6e7a459c.bindPopup(popup_4850f2329be2592ff13001b67e000057)
+        ;
+
+        
+    
+    
+            marker_58421b17359e6b691a29251a6e7a459c.bindTooltip(
+                `<div>
+                     Lat: 42.027227, Lon: -93.607058
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_80ae7873b86e203a6fcb4057380945ef = L.marker(
+                [42.042114, -93.622312],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_c3ca58bab64f2fa42f38fe8729243f4c = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ac44ae147d7e6390ab95bd227ae49756 = $(`<div id="html_ac44ae147d7e6390ab95bd227ae49756" style="width: 100.0%; height: 100.0%;">Price: $145,000 Latitude: 42.042114 Longitude: -93.622312 Score: 5.00</div>`)[0];
+                popup_c3ca58bab64f2fa42f38fe8729243f4c.setContent(html_ac44ae147d7e6390ab95bd227ae49756);
+            
+        
+
+        marker_80ae7873b86e203a6fcb4057380945ef.bindPopup(popup_c3ca58bab64f2fa42f38fe8729243f4c)
+        ;
+
+        
+    
+    
+            marker_80ae7873b86e203a6fcb4057380945ef.bindTooltip(
+                `<div>
+                     Lat: 42.042114, Lon: -93.622312
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fc2c8b3b7961be359400d7a271a74e55 = L.marker(
+                [42.026548, -93.66798],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_dd131575b6a943abec5fd8e36150b9eb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ecf4df5fa49a931454da580e31411df9 = $(`<div id="html_ecf4df5fa49a931454da580e31411df9" style="width: 100.0%; height: 100.0%;">Price: $143,000 Latitude: 42.026548 Longitude: -93.66798 Score: 5.00</div>`)[0];
+                popup_dd131575b6a943abec5fd8e36150b9eb.setContent(html_ecf4df5fa49a931454da580e31411df9);
+            
+        
+
+        marker_fc2c8b3b7961be359400d7a271a74e55.bindPopup(popup_dd131575b6a943abec5fd8e36150b9eb)
+        ;
+
+        
+    
+    
+            marker_fc2c8b3b7961be359400d7a271a74e55.bindTooltip(
+                `<div>
+                     Lat: 42.026548, Lon: -93.66798
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_cc5d288fd6121b30e83c0bc3a2b2847d = L.marker(
+                [42.035951, -93.622644],
+                {}
+            ).addTo(map_2fb7fb85b51e96a7bf20a13155b660ef);
+        
+    
+        var popup_7837e3c72f11d6b21a9dec7c2a783f88 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aa16263a0736cffadcf881345292fd16 = $(`<div id="html_aa16263a0736cffadcf881345292fd16" style="width: 100.0%; height: 100.0%;">Price: $140,000 Latitude: 42.035951 Longitude: -93.622644 Score: 5.00</div>`)[0];
+                popup_7837e3c72f11d6b21a9dec7c2a783f88.setContent(html_aa16263a0736cffadcf881345292fd16);
+            
+        
+
+        marker_cc5d288fd6121b30e83c0bc3a2b2847d.bindPopup(popup_7837e3c72f11d6b21a9dec7c2a783f88)
+        ;
+
+        
+    
+    
+            marker_cc5d288fd6121b30e83c0bc3a2b2847d.bindTooltip(
+                `<div>
+                     Lat: 42.035951, Lon: -93.622644
+                 </div>`,
+                {"sticky": true}
+            );
+        
+</script>
+</html>
