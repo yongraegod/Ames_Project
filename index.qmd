@@ -106,18 +106,28 @@ Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 �
 
 # 분석 목표
 
-[ Our Goal ] 20대 솔로가 살 수 있을 상태 좋은 가성비 있는 집을 찾아줘!
+[ Our Goal ]
 </br>
-[ How? ] - 가성비 집 찾기에 맞는 변수들과 House_Price의 관계 살피기 > 5점 척도 부여하기 > 종합 평가 변수 만들기 
+20대 솔로가 살 수 있을 상태 좋은 가성비 있는 집을 찾아줘!
+</br>
+</br>
+[ How? ]
+</br>
+1. 가성비 집 찾기에 맞는 변수들과 House_Price의 관계 살피기
+</br>
+2. 5점 척도 부여하기
+</br>
+3. 종합 평가 변수 만들기 
 </br>
 
 
-# 변수 분석
 ::: {.card title="Sale_Price와 상관계수가 높은 변수들"}
 
 <img src="img/house_price_상관관계.png" alt="House Price 상관관계" width="600" />
 
 :::
+
+# 변수 분석
 
 ## Row 
 ```{python}
@@ -142,7 +152,7 @@ dict(
 #| content: valuebox
 #| title: "Garage_Cars"
 dict(
-  icon = "car-front",
+  icon = "car-front-fill",
   color = "orange",
   value = Garage_Cars
 )
@@ -305,7 +315,7 @@ fig.update_traces(marker=dict(size=7, opacity = 0.5))
 #| content: valuebox
 #| title: "Garage_Cars"
 dict(
-  icon = "car-front",
+  icon = "car-front-fill",
   color = "orange",
   value = Garage_Cars
 )
