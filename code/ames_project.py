@@ -483,8 +483,8 @@ my_map.save("../maps/map_with_final.html")
 # Score_Overall_Cond
 # --------------------------------------------------
 
-house1015_Overall = house1015.sort_values(by=['Score_Overall_Cond', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
-house1015_Overall[["Score_Overall_Cond",'Total_Score',"Sale_Price"]]
+house1015_Overall = house1015.sort_values(by=['Score_Overall_Cond', 'Total_Score',"Sale_Price", 'Neighborhood'], ascending=False).reset_index(drop=True).head(10)
+house1015_Overall[["Score_Overall_Cond",'Total_Score',"Sale_Price", 'Neighborhood']]
 
 ## 지도
 # 지도의 중심 위치를 결정하기 위해 중간값을 사용
@@ -500,8 +500,7 @@ mymap1 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
 for idx, row in house1015_Overall.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
-        popup=f"Price: ${row['Sale_Price']:,}\nLatitude: {row['Latitude']}\nLongitude: {row['Longitude']}\nScore: {row['Score_Overall_Cond']:.2f}",
-        tooltip=f"Lat: {row['Latitude']}, Lon: {row['Longitude']}"
+        popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_Overall_Cond']:.2f}"
     ).add_to(mymap1)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
@@ -513,7 +512,7 @@ mymap1.save("../maps/house1015_Overall.html")
 # --------------------------------------------------
 
 house1015_GrLivArea = house1015.sort_values(by=['Score_GrLivArea', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
-house1015_GrLivArea[["Score_GrLivArea",'Total_Score',"Sale_Price"]]
+house1015_GrLivArea[["Score_GrLivArea",'Total_Score',"Sale_Price", 'Neighborhood']]
 
 ## 지도
 # 지도의 중심 위치를 결정하기 위해 중간값을 사용
@@ -529,8 +528,7 @@ mymap2 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
 for idx, row in house1015_GrLivArea.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
-        popup=f"Price: ${row['Sale_Price']:,}\nLatitude: {row['Latitude']}\nLongitude: {row['Longitude']}\nScore: {row['Score_GrLivArea']:.2f}",
-        tooltip=f"Lat: {row['Latitude']}, Lon: {row['Longitude']}"
+        popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_GrLivArea']:.2f}"
     ).add_to(mymap2)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
@@ -541,7 +539,7 @@ mymap2.save("../maps/house1015_GrLivArea.html")
 # --------------------------------------------------
 
 house1015_year_remod = house1015.sort_values(by=['Score_year_remod', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
-house1015_year_remod[["Score_year_remod",'Total_Score',"Sale_Price"]]
+house1015_year_remod[["Score_year_remod",'Total_Score',"Sale_Price", 'Neighborhood']]
 
 ## 지도
 # 지도의 중심 위치를 결정하기 위해 중간값을 사용
@@ -557,8 +555,7 @@ mymap3 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
 for idx, row in house1015_year_remod.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
-        popup=f"Price: ${row['Sale_Price']:,}\nLatitude: {row['Latitude']}\nLongitude: {row['Longitude']}\nScore: {row['Score_year_remod']:.2f}",
-        tooltip=f"Lat: {row['Latitude']}, Lon: {row['Longitude']}"
+         popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_year_remod']:.2f}"
     ).add_to(mymap3)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
@@ -569,7 +566,7 @@ mymap3.save("../maps/house1015_GrLivArea")
 # -------------------------------------------------
 
 house1015_Year_Built = house1015.sort_values(by=['Score_Year_Built', 'Total_Score',"Sale_Price"], ascending=False).reset_index(drop=True).head(10)
-house1015_Year_Built[["Score_Year_Built",'Total_Score',"Sale_Price"]]
+house1015_Year_Built[["Score_Year_Built",'Total_Score',"Sale_Price", 'Neighborhood']]
 
 ## 지도
 # 지도의 중심 위치를 결정하기 위해 중간값을 사용
@@ -585,8 +582,7 @@ mymap4 = folium.Map(location=map_center, zoom_start=12, tiles="cartodbpositron")
 for idx, row in house1015_Year_Built.iterrows():
     folium.Marker(
         location=[row['Latitude'], row['Longitude']],  # 위치를 위도와 경도로 설정
-        popup=f"Price: ${row['Sale_Price']:,}\nLatitude: {row['Latitude']}\nLongitude: {row['Longitude']}\nScore: {row['Score_Year_Built']:.2f}",
-        tooltip=f"Lat: {row['Latitude']}, Lon: {row['Longitude']}"
+        popup=f"Price: ${row['Sale_Price']:,}<br>Neighborhood: {row['Neighborhood']}<br>TotalScore: {row['Total_Score']}<br>Score: {row['Score_Year_Built']:.2f}"
     ).add_to(mymap4)
 
 # 지도를 HTML 파일로 저장하거나 노트북에서 바로 표시
@@ -785,3 +781,9 @@ for _, row in top_2_per_group.iterrows():
 
 # 지도를 HTML 파일로 저장하거나 IPython 환경에서 표시
 my_map.save("../maps/top_2_houses_map.html")
+
+# csv로 저장
+df = top_2_per_group[["Longitude", 'Latitude', 'Neighborhood','Sale_Price', 'Score_GrLivArea', 'Score_Overall_Cond',
+                                    'Score_GarageCars', 'Score_year_remod','Score_Year_Built', 'Total_Score']]
+
+df.to_csv('../data/top_2_per_group.csv', index=False)

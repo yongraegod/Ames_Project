@@ -1,6 +1,6 @@
 --- 
 title: "AMES 가성비 집 찾기 Project"
-author: "🥰최강2조"
+author: "너희 다 우리 밑2조"
 format: 
   dashboard:
     scrolling: True
@@ -88,8 +88,37 @@ fig.update_layout(
 ### 인구 분포
 
 ::: {.card title="인구 분포"}
-</br>
-![](img/ames_population.png)
+```{python}
+ames_age = pd.read_csv("../Ames_Project/data/ames_age.csv")
+ames_age = ames_age.iloc[:,:2]
+ames_age = ames_age.drop(ames_age.index[0])
+
+
+ames_age = pd.DataFrame(ames_age)
+# 1번째 열에 접근하여 쉼표를 제거한 후 숫자형으로 변환
+ames_age.iloc[:, 1] = ames_age.iloc[:, 1].str.replace(',', '').astype(int)
+
+
+# 열 이름을 더 간단한 이름으로 변경
+ames_age.columns = ames_age.columns.str.replace(r'[^\w\s]', '', regex=True)
+
+# 변경된 열 이름 확인
+print(ames_age.columns)
+
+# 그래프 그리기
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Ames city IowaEstimate', y='Label Grouping', data=ames_age, orient='h')
+
+# 레이블과 타이틀 설정
+plt.xlabel('Population Estimate')
+plt.ylabel('Age Group')
+plt.title('Population Estimate by Age Group in Ames City, Iowa')
+
+# 그래프 표시
+plt.show()
+plt.clf()
+```
+
 
 Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 것을 알 수 있다.
 :::
@@ -113,13 +142,16 @@ Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 �
 </br>
 [ How? ]
 </br>
-1. 가성비 집 찾기에 맞는 변수들과 House_Price의 관계 살피기
+1.변수 선택
+</br>
+-가성비 집 찾기에 알맞은 변수
+</br>
+-houseprice와 상관관계 높은 변수
 </br>
 2. 5점 척도 부여하기
 </br>
 3. 종합 평가 변수 만들기 
 </br>
-
 
 ::: {.card title="Sale_Price와 상관계수가 높은 변수들"}
 상관계수 상위 두개의 변수를 보겠다.
@@ -151,6 +183,18 @@ plt.ylabel('Features', fontsize=4)
 plt.show()
 plt.clf()
 ```
+
+
+</br>
+이 외, 개별 선택 변수
+</br>
+Overall_Cond = "전반적인 집 컨디션" - 종합 지표를 나타내기에 용이
+</br>
+Year_Remod_Add = "리모델링 년도" - Overall_Cond 과 같이 종합적인 집 컨디션과 상태 체크에 용이할 것이라 예측 
+</br>
+Year_Built = "건축연도" - 건물 자체의 부식 상태도 동시 체크하여 더 나은 가성비 선택을 진행하고자 함 
+</br>
+
 :::
 
 # 변수 분석
@@ -339,22 +383,14 @@ fig.update_traces(marker=dict(size=7, opacity = 0.5))
 
 ### Right Column
 ::: {.card title="설명"}
--Gr_Liv_Area 기준으로 점수 부여 (5점이 가장 넓고, 1점이 가장 좁음)
-
+-Gr_Liv_Area 기준으로 점수 부여 
+</br>
 -가격 대비 면적 계산 (면적 당 가격을 구하고, 그 역수로 면적 대비 가격 지표를 만듦)
 </br>
--평당 집값 기준으로 평가 변수를 부여
+-평당 집값 기준으로 평가 변수를 구성
 </br>
 -가장 낮은 평당 집값 기준으로 5점 부여
-</br>
--상위/하위 10% 가성비 좋은 집들 보기
 
-```{python}
-GrLivArea_low = house1015['Price_Per_Area'].quantile(0.1)  # 하위 10%의 평당 가격 
-np.float64(77.23428775483703)
-GrLivArea_high = house1015['Price_Per_Area'].quantile(0.9)  # 상위 10%의 평당 가격
-np.float64(146.3170006516781)
-```
 :::
 
 :::
@@ -462,7 +498,7 @@ house1015["Score_Overall_Cond"] = np.where(house1015["Overall_Cond"] == 'Very_Po
                                    np.where(house1015["Overall_Cond"] == "Good", 4,
                                    np.where(house1015["Overall_Cond"] == "Very_Good", 4, 5))))))))
 
-# x,y값 지정 
+# x,y값 지정
 x = house1015["Score_Overall_Cond"]
 y = house1015["Sale_Price"]
 
@@ -607,6 +643,7 @@ plt.clf()
 # 리모델링 연도에 따른 가성비 집
 
 house[["Year_Remod_Add"]].max() #2010
+</br>
 house[["Year_Remod_Add"]].min() #1950
 </br>
 -리모델링이 최근에 이뤄진 경우 5점 부여, 오래된 경우 1점 부여
@@ -694,13 +731,28 @@ plt.clf()
 
 ### Right Column
 ::: {.card title="설명"}
-Year_Built를 기준으로 점수를 부여
+
+built_min = house1015['Year_Built'].min() # 1872
+</br>
+built_max = house1015['Year_Built'].max() # 2008
+
+</br>
+-Year_Built를 기준으로 점수를 부여
+
+</br>
+1872년 ~ 1899년 = 1점
+</br>
+1900년 ~ 1926년 = 2점
+</br>
+1927년 ~ 1953년 = 3점
+</br>
+1954년 ~ 1980년 = 4점
+</br>
+1981년 ~ 2008년 = 5점
 
 :::
 
 :::
-
-
 
 # 종합평가
 
@@ -771,8 +823,12 @@ IFrame(src='maps/top_2_houses_map.html', width='100%', height='600px')
 
 ### Right Column3
 ::: {.card title="설명"}
-▣ 22개 동네
-![](img/22개 동네.png)
+```{python}
+# 동네별 top2 데이터 불러오기
+top_2_per_group = pd.read_csv("../Ames_Project/data/top_2_per_group.csv")
+
+top_2_per_group
+```
 
 </br>
 
