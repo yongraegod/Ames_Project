@@ -603,9 +603,99 @@ plt.clf()
 ```
 
 # 종합평가
+
+1. 종합평가 지도
+
+## Row
+
+::: {.columns}
+
+### Left Column
 ```{python}
-#| title: 종합평가 지도
+#| title: 1. 종합평가 지도
 
 # html 파일을 대시보드에 삽입
 IFrame(src='maps/map_with_final.html', width='100%', height='600px')
 ```
+
+### Right Column
+::: {.card title="설명"}
+▣ 빨간색 : 4점 이상
+</br>
+▣ 주황색 : 4점 미만 3점 이상
+</br>
+▣ 노란색 : 3점 미만 2점 이상
+</br>
+▣ 초록색 : 2점 미만 1점 이상
+</br>
+▣ 파란색 : 1점 미만
+:::
+
+:::
+
+
+## Row
+
+2. Ames시의 가성비 Top 10
+
+## Row
+::: {.columns}
+
+### Left Column2
+```{python}
+#| title: 2. Ames시의 가성비 Top 10
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/map_with_final.html', width='100%', height='600px')
+```
+
+### Right Column2
+::: {.card title="설명"}
+▣ Top 10 집 정보
+</br>
+1.
+</br>
+2.
+</br>
+3.
+</br>
+4.
+</br>
+5.
+</br>
+6.
+</br>
+7.
+</br>
+8.
+</br>
+9.
+</br>
+10.
+
+:::
+
+:::
+
+## Row
+
+3.  동네별 Top 2
+
+## Row
+
+::: {.columns}
+
+### Left Column3
+```{python}
+#| title: 3. 동네별 Top 2
+
+# html 파일을 대시보드에 삽입
+IFrame(src='maps/map_with_final.html', width='100%', height='600px')
+```
+
+### Right Column3
+::: {.card title="설명"}
+이런저런 설명하기
+:::
+
+:::
