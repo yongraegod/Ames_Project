@@ -251,7 +251,9 @@ house1015 = house[(house["Sale_Price"] >= 100000) & (house["Sale_Price"] < 15000
 house1015 = house1015.sort_values("Gr_Liv_Area", ascending = False)
 ```
 
-## Row {.tabset}
+::: {.columns}
+
+### Left Column {.tabset}
 ```{python}
 #| title: 01.평당 가격 분포 
 
@@ -336,6 +338,13 @@ fig.update_layout(
 fig.update_traces(marker=dict(size=7, opacity = 0.5))
 ```
 
+### Right Column
+::: {.card title="설명"}
+이런저런 설명하기
+:::
+
+:::
+
 ## Row
 ```{python}
 #| content: valuebox
@@ -347,7 +356,8 @@ dict(
 )
 ```
 
-## Row {height = 20%}
+
+## Row
 ```{python}
 #| title: GarageCars 지도
 from IPython.display import IFrame
@@ -356,7 +366,11 @@ from IPython.display import IFrame
 IFrame(src='maps/house_car.html', width='100%', height='600px')
 ```
 
-## Row {.tabset}
+## Row
+
+::: {.columns}
+
+### Left Column {.tabset}
 ```{python}
 #| title: 01.빈도 막대그래프
 # 주차가능 차 수에 따른 빈도 막대그래프 
@@ -385,6 +399,12 @@ plt.ylabel('빈도')
 plt.show()
 plt.clf()
 ```
+### Right Column
+::: {.card title="설명"}
+이런저런 설명하기
+:::
+
+:::
 
 ## Row
 ```{python}
@@ -397,7 +417,7 @@ dict(
 )
 ```
 
-## Row {height = 20%}
+## Row
 
 ```{python}
 #| title: Best Overall_Cond in map
@@ -406,7 +426,11 @@ dict(
 IFrame(src='maps/house_cond.html', width='100%', height='600px')
 ```
 
-## Row {.tabset}
+## Row
+
+::: {.columns}
+
+### Left Column {.tabset}
 ```{python}
 #| title: 01.빈도 막대그래프
 
@@ -446,6 +470,12 @@ plt.ylabel("집값", fontsize = 9)
 plt.show()
 plt.clf()
 ```
+### Right Column
+::: {.card title="설명"}
+이런저런 설명하기
+:::
+
+:::
 
 ## Row
 
@@ -459,7 +489,7 @@ dict(
 )
 ```
 
-## Row {height = 20%}
+## Row
 
 ```{python}
 #| title: Best Year_Remod_Add in map
@@ -468,7 +498,11 @@ dict(
 IFrame(src='maps/house_remod.html', width='100%', height='600px')
 ```
 
-## Row {.tabset}
+## Row
+
+::: {.columns}
+
+### Left Column {.tabset}
 ```{python}
 #| title: 01. 막대그래프 
 
@@ -531,6 +565,13 @@ plt.show()
 plt.clf()
 ```
 
+### Right Column
+::: {.card title="설명"}
+이런저런 설명하기
+:::
+
+:::
+
 ## Row
 ```{python}
 #| content: valuebox
@@ -542,7 +583,7 @@ dict(
 )
 ```
 
-## Row {height = 20%}
+## Row
 ```{python}
 #| title: Best Year_Built in map
 
@@ -550,7 +591,11 @@ dict(
 IFrame(src='maps/house_built.html', width='100%', height='600px')
 ```
 
-## Row {.tabset}
+## Row
+
+::: {.columns}
+
+### Left Column {.tabset}
 ```{python}
 #| title: 01. 막대 그래프 
 
@@ -601,6 +646,13 @@ plt.ylabel("집값")
 plt.show()
 plt.clf()
 ```
+
+### Right Column
+::: {.card title="설명"}
+이런저런 설명하기
+:::
+
+:::
 
 # 종합평가
 
