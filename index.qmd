@@ -3,7 +3,7 @@ title: "AMES 가성비 집 찾기 Project"
 author: "🥰최강2조"
 format: 
   dashboard:
-    scrolling: true
+    scrolling: True
     nav-buttons:
      - icon: github
        href: https://github.com/yongraegod/Ames_Project
@@ -124,7 +124,6 @@ Ames 인구 분포를 보면 20~24세 인구 비율이 압도적으로 높은 �
 ::: {.card title="Sale_Price와 상관계수가 높은 변수들"}
 
 <img src="img/house_price_상관관계.png" alt="House Price 상관관계" width="600" />
-
 :::
 
 # 변수 분석
